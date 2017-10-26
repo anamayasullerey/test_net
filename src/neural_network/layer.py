@@ -1,0 +1,56 @@
+"""
+layer (Hidden/Output) of a neural network
+"""
+
+import numpy as np
+from . import activation_functions as af
+
+class Layer(object):
+  
+  def __init__(self, layer_num, num_neurons, activation_func_name, prev_layer):
+    
+    self.layer_num = layer_num
+    self.num_neurons = num_neurons
+
+    # Set the activation function
+    self.activation_func = af.ActivationFunctions.get_function(activation_func_name)
+
+    # Set the activation function derivative
+    self.activation_func_prime = af.ActivationFunctions.get_function(activation_func_name + "_prime")
+      
+    # initialize the weight and the bias matrix to 0s
+    # this step is not must have
+    self.weights = np.zeros((num_neurons, prev_layer.num_neurons))
+    self.bias = np.zeros((num_neurons, 1))
+
+    # stitch the layers in the backwards direction
+    self.prev_layer = prev_layer
+
+    # stitch the layers in the forward direction
+    self.next_layer = None
+    prev_layer.next_layer = self 
+  
+
+  # forward propagation function
+  def forward_prop(self, input_activations):
+    self.z = np.dot(self.weights, input_activations) + self.bias
+    self.activations = self.activation_func(self.z)
+
+    if self.next_layer is not None:
+      self.next_layer.forward_prop(self.activations)
+
+  # backwards propagation (backprop) function
+  def backward_prop(self, weight_update_func, dactivations):
+    batch_size = self.activations.shape[1]
+    self.dz = dactivations * self.activation_func_prime(self.z)
+    self.dweights = np.dot(self.dactivations, np.transpose(self.prev_layer.activations)) / batch_size 
+    self.dbias = np.squeeze(np.sum(self.dz, axis=1, keepdims=True)) / batch_size
+    weight_update_func(self)
+    if (self.layer_num > 0):
+      self.dactivations_prev = np.dot(np.transpose(self.weights), self.dz)
+      self.prev_layer.backward_prop(weight_update_func, self.dactivations_prev)
+
+  # intialization of weight and bias matrix
+  def initialize_parameters(self):
+    self.weights = np.random.randn(self.weights.shape[0], self.weights.shape[1])  * 0.01
+    self.bias = np.zeros(self.bias.shape)
