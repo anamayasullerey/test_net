@@ -1,22 +1,22 @@
 import os
 import gzip
-import cPickle
+import _pickle
 import wget
 
 import numpy as np
 
 
-def loadMnist():
+def load_mnist():
   if not os.path.exists(os.path.join(os.curdir, 'data')):
     os.mkdir(os.path.join(os.curdir, 'data'))
     wget.download('http://deeplearning.net/data/mnist/mnist.pkl.gz', out='data')
 
   data_file = gzip.open(os.path.join(os.curdir, 'data', 'mnist.pkl.gz'), 'rb')
-  training_data, validation_data, test_data = cPickle.load(data_file)
+  training_data, validation_data, test_data = _pickle.load(data_file, encoding='iso-8859-1')  
   data_file.close()
 
   training_inputs = [np.reshape(x, (784, 1)) for x in training_data[0]]
-  training_results = [vectorizedResult(y) for y in training_data[1]]
+  training_results = [vectorized_result(y) for y in training_data[1]]
   training_data = zip(training_inputs, training_results)
 
   validation_inputs = [np.reshape(x, (784, 1)) for x in validation_data[0]]
@@ -28,7 +28,7 @@ def loadMnist():
   return training_data, validation_data, test_data
 
 
-def vectorizedResult(y):
+def vectorized_result(y):
   e = np.zeros((10, 1))
   e[y] = 1.0
   return e

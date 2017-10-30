@@ -35,7 +35,7 @@ class ActivationFunctions(object):
   
   @staticmethod
   def relu_prime(z):
-    return float(z > 0)
+    return (z > 0).astype(float)
 
   @staticmethod
   def get_function(func_name):

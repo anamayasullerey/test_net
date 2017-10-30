@@ -10,3 +10,8 @@ class InputLayer(object):
   def forward_prop(self, input_activations):
     self.activations = input_activations
     self.next_layer.forward_prop(input_activations)
+
+  def print_forward(self):
+    print("Input layer")  
+    print("activations:")
+    print(self.activations)
