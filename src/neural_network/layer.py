@@ -76,13 +76,13 @@ class Layer(object):
     print("dweights:")
     print(self.dweights)
     if (hasattr(self, "dweights_numerical")):
-     print("dweights_numerical:")
-     print(self.dweights_numerical)
+      print("dweights_numerical:")
+      print(self.dweights_numerical)
     print("dbias:")
     print(self.dbias)
     if (hasattr(self, "dbias_numerical")):
-     print("dbias_numerical:")
-     print(self.dbias_numerical)
+      print("dbias_numerical:")
+      print(self.dbias_numerical)
     if (self.layer_num > 0):
       print("dactivations_prev:")
       print(self.dactivations_prev)

@@ -67,14 +67,12 @@ class NeuralNetwork(object):
     return np.argmax(self.predict(x))
 
   def print_state(self):
-    print("Printing training step")
+    print("Printing state")
     self.input_layer.print_forward()
     for i in range(len(self.layers)):
       self.layers[i].print_forward()
-    print("output dactivation")
+      self.layers[i].print_backward()  
     print(self.dactivation)
-    for i in range(len(self.layers)-1, -1, -1):
-     self.layers[i].print_backward()  
  
   def check_gradient(self, x, y, store=0):
     # weights are not updated during the check
@@ -122,7 +120,7 @@ class NeuralNetwork(object):
     return (cost_plus-cost_minus)/(2*epsilon)
           
   @staticmethod  
-  def error_chk(value0, value1, margin_fraction=1e-7):
+  def error_chk(value0, value1, margin_fraction=1e-4):
     numerator = np.linalg.norm(value0 - value1)                                     # Step 1'
     denominator = np.linalg.norm(value0) + np.linalg.norm(value1)                   # Step 2'
     return (numerator <= margin_fraction * denominator)
