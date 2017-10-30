@@ -39,7 +39,7 @@ class Layer(object):
       self.next_layer.forward_prop(self.activations)
 
   # backwards propagation (backprop) function
-  def backward_prop(self, dactivations, weight_update_func, l2_regu_coeff):
+  def backward_prop(self, dactivations, l2_regu_coeff):
     batch_size = self.activations.shape[1]
     self.dz = dactivations * self.activation_func_prime(self.z)
     self.dweights = np.dot(self.dz, np.transpose(self.prev_layer.activations))/batch_size
@@ -51,9 +51,7 @@ class Layer(object):
           
     if (self.layer_num > 0):
       self.dactivations_prev = np.dot(np.transpose(self.weights), self.dz)
-      self.prev_layer.backward_prop(self.dactivations_prev, weight_update_func, l2_regu_coeff)
-
-    weight_update_func(self)
+      self.prev_layer.backward_prop(self.dactivations_prev, l2_regu_coeff)
 
   # intialization of weight and bias matrix
   def initialize_parameters(self):
@@ -77,12 +75,14 @@ class Layer(object):
     print(self.dz)
     print("dweights:")
     print(self.dweights)
-    print("dweights_numerical:")
-    print(self.dweights_numerical)
+    if (hasattr(self, "dweights_numerical")):
+     print("dweights_numerical:")
+     print(self.dweights_numerical)
     print("dbias:")
     print(self.dbias)
-    print("dbias_numerical:")
-    print(self.dbias_numerical)
+    if (hasattr(self, "dbias_numerical")):
+     print("dbias_numerical:")
+     print(self.dbias_numerical)
     if (self.layer_num > 0):
       print("dactivations_prev:")
       print(self.dactivations_prev)

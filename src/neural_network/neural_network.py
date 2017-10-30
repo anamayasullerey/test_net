@@ -37,21 +37,18 @@ class NeuralNetwork(object):
   def forward_prop(self, x):
     self.input_layer.forward_prop(x)
     
-  def backward_prop(self, da, weight_update_function):
-    self.layers[-1].backward_prop(da, self.weight_update_func, self.l2_regu_coeff)  
-    
+  def backward_prop(self, y):
+    self.dactivation = self.loss_func_prime(y, self.layers[-1].activations)
+    self.layers[-1].backward_prop(self.dactivation, self.l2_regu_coeff)  
+ 
+  def weight_update(self):
+    for l in self.layers:
+      self.weight_update_func(l)
+      
   def train(self, x, y):
     self.forward_prop(x)
-    print("Printing training step")
-    self.input_layer.print_forward()
-    for i in range(len(self.layers)):
-      self.layers[i].print_forward()
-    self.dactivation = self.loss_func_prime(y, self.layers[-1].activations)
-    print("output dactivation")
-    print(self.dactivation)
-    self.backward_prop(self.dactivation, self.weight_update_func)
-    for i in range(len(self.layers)-1, -1, -1):
-     self.layers[i].print_backward()  
+    self.backward_prop(y)
+    self.weight_update()
 
   def loss(self, y):
     loss_value = self.loss_func(y, self.layers[-1].activations)
@@ -78,55 +75,60 @@ class NeuralNetwork(object):
     print(self.dactivation)
     for i in range(len(self.layers)-1, -1, -1):
      self.layers[i].print_backward()  
-
-  def get_gradients(self, x, y, epsilon=1e-7):
-    print("Numerically calculating gradients.")
-    for l in range(len(self.layers)):
-      print("layer: " +str(l))
-      self.layers[l].dweights_numerical = np.zeros(self.layers[l].weights.shape)
-      self.layers[l].dbias_numerical = np.zeros((self.layers[l].num_neurons, 1))
-      for i in range(self.layers[l].weights.shape[0]):
-        for j in range(self.layers[l].weights.shape[1]):
-          print(i)
-          print(j)
-          orig_value = self.layers[l].weights[i][j]  
-          self.layers[l].weights[i][j] += epsilon
-          self.forward_prop(x)
-          cost_plus = self.loss(y)
-          self.layers[l].weights[i][j] -= 2*epsilon
-          self.forward_prop(x)
-          cost_minus = self.loss(y)
-          self.layers[l].dweights_numerical[i][j] = (cost_plus-cost_minus)/(2*epsilon)
-          self.layers[l].weights[i][j] = orig_value
-        for i in range(self.layers[l].num_neurons):
-          orig_value = self.layers[l].bias[i][0]
-          self.layers[l].bias[i][0] += epsilon
-          self.forward_prop(x)
-          cost_plus = self.loss(y)
-          self.layers[l].bias[i][0] -= 2*epsilon
-          self.forward_prop(x)
-          cost_minus = self.loss(y)
-          self.layers[l].dbias_numerical[i][0] = (cost_plus-cost_minus)/(2*epsilon)
-          self.layers[l].bias[i][0] = orig_value
-      print("dweights_numerical")
-      print(self.layers[l].dweights_numerical)  
-      print("dbias_numerical")
-      print(self.layers[l].dbias_numerical)
  
-  def check_gradient(self, x, y):     
-   self.get_gradients(x, y)
-   self.train(x,y)
-   for l in self.layers:
-     w_diff = np.absolute(l.dweights_numerical - l.dweights)   
-     w_aver = np.absolute(l.dweights_numerical + l.dweights)/2   
-     if (np.any(w_diff > .001*w_aver)):
-       print("Gradient check failed for weights matrix of layer " + str(l.layer_num))
-     b_diff = np.absolute(l.dbias_numerical - l.dbias)   
-     b_aver = np.absolute(l.dbias_numerical + l.dbias)/2   
-     if (np.any(b_diff > .001*b_aver)):
-       print("Gradient check failed for bias matrix of layer " + str(l.layer_num))
-      
-     
+  def check_gradient(self, x, y, store=0):
+    # weights are not updated during the check
+    # first calculate the model gradients by running forward and backward pass
+    self.forward_prop(x)
+    self.backward_prop(y)
+
+    # numerically calculate gradients for each parameter
+    for l in self.layers:
+      if store:
+         l.dweights_numerical = np.zeros(l.weights.shape)
+         l.dbias_numerical = np.zeros(l.bias.shape)
+
+      for i in range(l.weights.shape[0]):
+        for j in range(l.weights.shape[1]):
+          indices = (i,j)
+          numerical_grad = self.calculate_numerical_gradient(x, y, l.weights, indices)
+          if (store):
+            l.dweights_numerical[indices] = numerical_grad
+          if not NeuralNetwork.error_chk(l.dweights[indices], numerical_grad):
+            print ("Error: Gradient check failed for weight matrix for layer " + str(l.layer_num))
+            print ("       index = " + str(indices))
+            print ("       gradient = " + str(l.dweights[indices]))
+            print ("       numerical gradient = " + str(numerical_grad))
+      for i in range(l.bias.shape[0]):
+          indices = (i, 0)
+          numerical_grad = self.calculate_numerical_gradient(x, y, l.bias, indices)
+          if (store):
+            l.dbias_numerical[indices] = numerical_grad
+          if not NeuralNetwork.error_chk(l.dbias[indices], numerical_grad):
+            print ("Error: Gradient check failed for bias matrix for layer " + str(l.layer_num))
+            print ("       index = " + str(indices))
+            print ("       gradient = " + str(l.bias[indices]))
+            print ("       numerical gradient = " + str(numerical_grad))
+         
+  def calculate_numerical_gradient(self, x, y, array, indices, epsilon=1e-7):
+    orig_value = array[indices]
+    array[indices] += epsilon
+    self.forward_prop(x)
+    cost_plus = self.loss(y)
+    array[indices] -= 2*epsilon
+    self.forward_prop(x)
+    cost_minus = self.loss(y)
+    array[indices] = orig_value
+    return (cost_plus-cost_minus)/(2*epsilon)
+          
+  @staticmethod  
+  def error_chk(value0, value1, margin_fraction=1e-7):
+    numerator = np.linalg.norm(value0 - value1)                                     # Step 1'
+    denominator = np.linalg.norm(value0) + np.linalg.norm(value1)                   # Step 2'
+    return (numerator <= margin_fraction * denominator)
+
+ 
+  
           
          
          
