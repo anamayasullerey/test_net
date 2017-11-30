@@ -4,21 +4,7 @@ import neural_network.layer_types as lt
 import neural_network.loss_layer as ll
 import neural_network.weight_update_params as wup
 import utils.load_mnist as load_mnist
-import random
-
-def show(image):
-    """
-    Render a given numpy.uint8 2D array of pixel data.
-    """
-    from matplotlib import pyplot
-    import matplotlib as mpl
-    fig = pyplot.figure()
-    ax = fig.add_subplot(1,1,1)
-    imgplot = ax.imshow(image, cmap=mpl.cm.Greys)
-    imgplot.set_interpolation('nearest')
-    ax.xaxis.set_ticks_position('top')
-    ax.yaxis.set_ticks_position('left')
-    pyplot.show()
+import utils.image as image
 
 def validate(validation_data, net):
   validation_results = [(net.predict_classify(x) == y) for x, y in validation_data]
@@ -55,7 +41,7 @@ net.initialize_parameters()
 
 # random.shuffle(training_data)
 mini_batch_size = 32
-epochs = 1
+epochs = 3
 for epoch in range(1, epochs+1):
   print(" Epoch " + str(epoch))
   #random.shuffle(training_data)
@@ -71,14 +57,13 @@ for epoch in range(1, epochs+1):
 
     net.train(x, y)
   
-    if (count%10 == 0):
+    if (count%100 == 0):
       correct = validate(validation_data, net)
       accuracy = correct / 100.0
       print("----------------------")
       print()
       print("Epoch {0}, minibatch {1}, accuracy {2} %.".format(epoch, count, accuracy))
   
-  #show(x.reshape((28,28)))           
   #if (count%100 == 0) and (epoch != 0):
   #  params.learning_rate = params.learning_rate/2
   #  print("Changing learning rate to " + str(params.learning_rate))
@@ -86,7 +71,6 @@ for epoch in range(1, epochs+1):
 
 #
 print("Epoch {0}, accuracy {1} %.".format(epoch, accuracy))
-for x, y in validation_data:
-  if (net.predict_classify(x) > 9):
-    show(x.reshape((28,28)))           
+#for x, y in validation_data:
+#    image.show(x.reshape((28,28)))           
      
