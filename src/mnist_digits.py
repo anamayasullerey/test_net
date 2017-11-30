@@ -54,11 +54,9 @@ net.set_weight_update_function(params)
 net.initialize_parameters()
 
 # random.shuffle(training_data)
-print ("Training set size is " + str(len(training_data)))
 mini_batch_size = 32
 epochs = 1
-print("Training data shape: ")
-for epoch in range(epochs):
+for epoch in range(1, epochs+1):
   print(" Epoch " + str(epoch))
   #random.shuffle(training_data)
   mini_batches = [training_data[k:k + mini_batch_size] for k in
@@ -74,13 +72,11 @@ for epoch in range(epochs):
     net.train(x, y)
   
     if (count%10 == 0):
-      print ("Processing  minibatch : " + str(count))
       correct = validate(validation_data, net)
       accuracy = correct / 100.0
       print("----------------------")
       print()
-      print ("Running epoch " + str(epoch))
-      print("Epoch {0}, accuracy {1} %.".format(epoch + 1, accuracy))
+      print("Epoch {0}, minibatch {1}, accuracy {2} %.".format(epoch, count, accuracy))
   
   #show(x.reshape((28,28)))           
   #if (count%100 == 0) and (epoch != 0):
@@ -89,7 +85,7 @@ for epoch in range(epochs):
   #  net.set_weight_update_function(params)
 
 #
-print("Epoch {0}, accuracy {1} %.".format(epoch + 1, accuracy))
+print("Epoch {0}, accuracy {1} %.".format(epoch, accuracy))
 for x, y in validation_data:
   if (net.predict_classify(x) > 9):
     show(x.reshape((28,28)))           
