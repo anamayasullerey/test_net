@@ -3,45 +3,27 @@ Activation functions and their derivatives
 """
 import numpy as np
 
-class ActivationFunctions(object):
+def sigmoid(x):
+  return 1.0 / (1.0 + np.exp(-x))
 
-  @staticmethod
-  def sigmoid(z):
-    return 1.0 / (1.0 + np.exp(-z))
-  
-  @staticmethod
-  def sigmoid_prime(z):
-    return ActivationFunctions.sigmoid(z) * (1 - ActivationFunctions.sigmoid(z))
-  
-  @staticmethod
-  def softmax(z):
-    return np.exp(z) / np.sum(np.exp(z))
-  
-  @staticmethod
-  def softmax_prime(z):
-    return ActivationFunctions.softmax(z) * (1 - ActivationFunctions.softmax(z))
-  
-  @staticmethod
-  def tanh():
-    return np.tanh(z)
-  
-  @staticmethod
-  def tanh_prime(z):
-    return 1 - ActivationFunctions.tanh(z) * ActivationFunctions.tanh(z)
-  
-  @staticmethod
-  def relu(z):
-    return np.maximum(z, 0)
-  
-  @staticmethod
-  def relu_prime(z):
-    return (z > 0).astype(float)
+def sigmoid_prime(x):
+  return sigmoid(x) * (1 - sigmoid(x))
 
-  @staticmethod
-  def get_function(func_name):
-    try: 
-      func = getattr(ActivationFunctions, func_name)
-      return func
-    except :
-      raise ValueError('Activation function "' + func_name + '" not defined')
+def softmax(x):
+  return np.exp(x) / np.sum(np.exp(x))
+
+def softmax_prime(x):
+  return softmax(x) * (1 - softmax(x))
+
+def tanh(x):
+  return np.tanh(x)
+
+def tanh_prime(x):
+  return 1 - tanh(x) * tanh(x)
+
+def relu(x):
+  return np.maximum(x, 0)
+
+def relu_prime(x):
+  return (x > 0).astype(float)
 

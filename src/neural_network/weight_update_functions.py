@@ -3,59 +3,44 @@ Weight update  functions
 """
 import numpy as np
 
-class WeightUpdateFunctions(object):
+def gradient_descent(layer, wu_params):
+  for param in layer.parameters:
+    layer.__dict__[param] -= wu_params.learning_rate * layer.__dict__["d" + param]
 
-  @staticmethod
-  def gradient_descent(layer, params):
-    layer.weights = layer.weights - params.learning_rate * layer.dweights
-    layer.bias = layer.bias - params.learning_rate * layer.dbias
-
-  @staticmethod
-  def gradient_descent_init(layer):
-    pass
-      
-  @staticmethod
-  def momentum(layer, params):
-    layer.weight_velocity = params.beta*layer.weight_velocity + (1-params.beta)*layer.dweights
-    layer.bias_velocity = params.beta*layer.bias_velocity + (1-params.beta)*layer.dbias
-    layer.weights = layer.weights - params.learning_rate * layer.weight_belocity
-    layer.bias = layer.bias - params.learning_rate * layer.bias_velocity
-
-  @staticmethod
-  def momentum_init(layer):
-    layer.weight_velocity = np.zeros(layer.weights.shape)
-    layer.bias_velocity = np.zeros(layer.bias.shape)
+def gradient_descent_init(layer):
+  pass
     
-  @staticmethod
-  def adam(layer, params):
+def momentum(layer, wu_params):
+  for param in layer.parameters:
+    layer.velocity[param] = wu_params.beta*layer.velocity[param] + (1-wu_params.beta)*layer.__dict__["d" + param]
+    layer.__dict__[param] -= wu_params.learning_rate * layer.velocity[param]
+
+def momentum_init(layer):
+  layer.velocity = {}
+  layer.sq_grad = {}
+  for param in layer.parameters:
+    layer.velocity[param] = np.zeros(layer.__dict__[param].shape)
+    layer.sq_grad[param] = np.zeros(layer.__dict__[param].shape)
+  
+def adam(layer, wu_params):
+  adj = 1/(1 - np.power(wu_params.beta1, wu_params.t))
+  wu_params.t += 1
+  for param in layer.parameters:
     # calculate velocity
-    layer.weight_velocity = params.beta1*layer.weight_velocity + (1-params.beta1)*layer.dweights
-    layer.bias_velocity = params.beta1*layer.bias_velocity + (1-params.beta1)*layer.dbias
+    layer.velocity[param] = wu_params.beta1*layer.velocity[param] + (1-wu_params.beta1)*layer.__dict__["d" + param]
     
     # calculate square of gradients
-    layer.sdw = params.beta2*layer.sdw + (1 - params.beta2)*np.power(layer.dweights, 2)
-    layer.sdb = params.beta2*layer.sdb + (1 - params.beta2)*np.power(layer.dbias, 2)
+    layer.sq_grad[param] = wu_params.beta2*layer.sq_derivative[param] + (1 - wu_params.beta2)*np.power(layer.__dict_["d" + param], 2)
     
     # adjustment
-    adj = 1/(1 - np.power(params.beta1, layer.t))
-    weight_velocity_adj = layer.weight_velocity * adj
-    bias_velocity_adj = layer.bias_velocity * adj
-    sdw_adj = layer.sdw * adj
-    sdb_adj = layer.sdb * adj
+    weight_velocity_adj = layer.velocity[param] * adj
+    sq_grad_adj = layer.sq_grad[param] * adj
     
-    layer.weight = layer.weight - params.learning_rate * weight_velocity_adj/np.sqrt(sdw_adj + params.epsilon)
-    layer.bias = layer.bias - params.learning_rate * bias_velocity_adj/np.sqrt(sdb_adj + params.epsilon)
-  
-  @staticmethod
-  def adam_init(layer):
-    layer.weight_velocity = np.zeros(layer.weights.shape)
-    layer.bias_velocity = np.zeros(layer.bias.shape)
-    layer.sdw = np.zeros(layer.weights.shape)
-    layer.sdb = np.zeros(layer.bias.shape)
-   
-  @staticmethod
-  def get_function(func_name):
-    try: 
-      return getattr(WeightUpdateFunctions, func_name)
-    except :
-      raise ValueError('Weight update function "' + func_name + '" not defined')
+    layer.__dict__[param] -= wu_params.learning_rate * weight_velocity_adj/np.sqrt(sq_grad_adj + wu_params.epsilon)
+
+def adam_init(layer):
+  layer.velocity = {}
+  layer.sq_grad = {}
+  for param in layer.parameters:
+    layer.velocity[param] =  np.zeros(layer.__dict__[param].shape)
+    layer.sq_grad[param] =  np.zeros(layer.__dict__[param].shape)

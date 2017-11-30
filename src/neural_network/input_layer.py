@@ -2,16 +2,19 @@
 Input layer of a neural network
 """
 
-class InputLayer(object):
+from . import layer
+
+class InputLayer(layer.Layer):
   
   def __init__(self, num_inputs):
+    super().__init__()
     self.num_neurons = num_inputs
   
-  def forward_prop(self, input_activations):
-    self.activations = input_activations
-    self.next_layer.forward_prop(input_activations)
+  def forward_calc(self, x):
+    self.activations = x
 
-  def print_forward(self):
-    print("Input layer")  
-    print("activations:")
-    print(self.activations)
+  def backward_calc(self):
+    print("Error: Network not stitched propertly. Backprop should not reach input layer.")
+
+  def print_backward(self):
+    pass

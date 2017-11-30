@@ -15,7 +15,7 @@ class LossFunctions(object):
 
   @staticmethod
   def sigmoid_cross_entropy_loss(y, a):
-    return - np.sum((y*np.log(a) + (1-y)*np.log(1-a)))/y.shape[1]
+    return  - np.sum((y*np.log(a) + (1-y)*np.log(1-a)))/y.shape[1]
   
   @staticmethod
   def sigmoid_cross_entropy_loss_prime(y, a):
@@ -31,11 +31,11 @@ class LossFunctions(object):
 
   @staticmethod
   def linear_mean_squared_loss(y, a):
-    return - np.sum(np.power((y-a), 2))/(2*y.shape[1])
+    return np.sum(np.power((a-y), 2))/(2*y.shape[1])
   
   @staticmethod
   def linear_mean_squared_loss_prime(y, a):
-    return  -(y-a)
+    return (a-y)
 
   @staticmethod
   def get_function(func_name):
