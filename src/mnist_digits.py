@@ -1,8 +1,8 @@
 import numpy as np
-import neural_network.neural_network as nn
-import neural_network.layer_types as lt
-import neural_network.loss_layer as ll
-import neural_network.weight_update_params as wup
+import nnframework.neural_network as nn
+import nnframework.layer_types as lt
+import nnframework.loss_layer as ll
+import nnframework.weight_update_params as wup
 import utils.load_mnist as load_mnist
 import utils.image as image
 
@@ -11,7 +11,6 @@ def validate(validation_data, net):
   return sum(result for result in validation_results)
     
 training_data_zip, validation_data_zip, test_data_zip = load_mnist.load_mnist()
-#print(type(training_data_zip))
 training_data = list(training_data_zip)
 validation_data = list(validation_data_zip)
 test_data = list(test_data_zip)
@@ -34,12 +33,9 @@ net.set_l2_loss_coeff(.00)
 
 np.random.seed(1)
 params = wup.GradientDescentParams(.3)
-#params = wup.AdamParams()
-#params = wup.MomentumParams()
 net.set_weight_update_function(params)
 net.initialize_parameters()
 
-# random.shuffle(training_data)
 mini_batch_size = 32
 epochs = 3
 for epoch in range(1, epochs+1):
@@ -60,7 +56,6 @@ for epoch in range(1, epochs+1):
     if (count%100 == 0):
       correct = validate(validation_data, net)
       accuracy = correct / 100.0
-      print("----------------------")
       print()
       print("Epoch {0}, minibatch {1}, accuracy {2} %.".format(epoch, count, accuracy))
   

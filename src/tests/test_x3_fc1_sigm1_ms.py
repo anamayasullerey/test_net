@@ -3,10 +3,10 @@ This test has a single fc neuron with weight initialized to 10
 """
 
 import numpy as np
-import neural_network.neural_network as nn
-import neural_network.layer_types as lt
-import neural_network.loss_layer as ll
-import neural_network.weight_update_params as wup
+import nnframework.neural_network as nn
+import nnframework.layer_types as lt
+import nnframework.loss_layer as ll
+import nnframework.weight_update_params as wup
 
 net = nn.NeuralNetwork("test_net", 1)
 
