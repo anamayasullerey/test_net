@@ -4,6 +4,7 @@ import numpy as np
 
 class NeuralNetwork(object):
 
+    # Input layer is automaticaly created when a NeuralNetwork is created
     def __init__(self, name, numInputs):
         self.name = name
         self.layers = []
@@ -28,9 +29,11 @@ class NeuralNetwork(object):
             self.layers[i].initialize_parameters()
             self.weight_update_init_func(self.layers[i])
 
+    # x should be a 2D numpy array
     def forward_prop(self, x):
         self.layers[0].forward_prop(x)
 
+    # y should be a 2D numpy array
     def backward_prop(self, y):
         self.layers[-1].backward_prop(y)
 
@@ -72,17 +75,21 @@ class NeuralNetwork(object):
 
     def check_gradient(self, x, y):
         # numerically calculate gradients for each parameter
-
         # weights are not updated during the check
-        # first calculate the model gradients by running forward and backward pass
+        # first calculate the model gradients by running forward and 
+        # backward pass
+        # Note: Currently the gradient checker works for 2D numpy arrays
+        #       Parameters with higher dimentions will give errors.
         self.forward_prop(x)
         self.backward_prop(y)
         self.cost = self.loss(y)
 
-        # numerically calculate gradients for each parameter
+        # numerically calculate gradients for each parameter in each layer
         for l in self.layers:
             l.dparams_numerical = {}
             for param in l.parameters:
+                # Neumerical derivatives are stored in a dictionary
+                # Initialize the parameter in the dictionary
                 l.dparams_numerical[param] = np.zeros(l.__dict__[param].shape)
                 for i in range(l.dparams_numerical[param].shape[0]):
                     for j in range(l.dparams_numerical[param].shape[1]):
@@ -97,16 +104,27 @@ class NeuralNetwork(object):
                             print ("       numerical gradient = " + str(numerical_grad))
 
     def calculate_numerical_gradient(self, x, y, layer, param, indices, epsilon=1e-7):
+        # store original value of the parameter
         orig_value = layer.__dict__[param][indices]
+        
+        # param + epsilon
         layer.__dict__[param][indices] += epsilon
         self.forward_prop(x)
         cost_plus = self.loss(y)
+        
+        # param - epsilon
         layer.__dict__[param][indices] -= 2*epsilon
         self.forward_prop(x)
         cost_minus = self.loss(y)
+        
+        # restore parameter
         layer.__dict__[param][indices] = orig_value
+        
+        # return numerical gradient
         return (cost_plus-cost_minus)/(2*epsilon)
 
+    # This function checks if the calculated and neumerical gradients are
+    # close enough. It may now work for very small values of gradients.
     @staticmethod
     def error_chk(value0, value1, margin_fraction=1e-4):
         numerator = np.linalg.norm(value0 - value1)
