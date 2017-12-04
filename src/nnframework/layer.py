@@ -1,49 +1,67 @@
 """
-layer 
+Layer base class functionality.
+
+Notes:
+    
+o Layer needs to have all its parametes listed in "parameters".
+
+o The following rules need to be observed while declaring parameters in any 
+  exteded class:
+  1. The parameter name in the parameters list should exactly match the
+     variable name.
+  2. The derivatibe of the parameter is held in the variable with same name 
+     with character "d" appended at the front
+           
+o l2_loss_coefficient is assumed generic enough for the purpose of this 
+  exercise that it gets a place in the class       
 """
 class Layer(object):
-  
-  def __init__(self):
-    self.layer_num = -1
-    self.l2_loss_coeff = 0
-    self.parameters = []
 
-  def forward_calc(self, x):
-    self.activations = self.act_func(x)
+    def __init__(self):
+        self.layer_num = -1
+        self.l2_loss_coeff = 0
+        self.parameters = []
 
-  def forward_prop(self, x):
-    self.forward_calc(x)
-    if self.next_layer is not None: 
-      self.next_layer.forward_prop(self.activations)
-      
-  def backward_calc(self):
-    pass  
+    """
+    Forward propagation related calculations.
+    Activation function needs to be defined in the extended class.
+    """
+    def forward_calc(self, x):
+        self.activations = self.act_func(x)
 
-  def backward_deactivations(self):
-    self.prev_layer.dactivations = self.dactivations * self.act_func_prime(self.prev_layer.activations)
+    def forward_prop(self, x):
+        self.forward_calc(x)
+        if self.next_layer is not None:
+            self.next_layer.forward_prop(self.activations)
 
-  def backward_prop(self):
-    self.backward_calc()
-    if (self.layer_num > 1):
-      self.backward_deactivations () 
-      self.prev_layer.backward_prop()
+    def backward_calc(self):
+        pass
 
-  def initialize_parameters(self):
-    pass      
+    def backward_grad(self):
+        self.prev_layer.dactivations = self.dactivations * self.act_func_prime(self.prev_layer.activations)
 
-  def print_forward(self):
-    print("Layer number: " + str(self.layer_num))  
-    print("activations:")
-    print(self.activations)
-  
-  def print_backward(self):
-    print("Layer number: " + str(self.layer_num)) 
-    if (self.layer_num > 0):
-      print("dactivations:")
-      print(self.dactivations)
-    
-  def set_l2_loss_coeff(self, l2_loss_coeff):
-    self.l2_loss_coeff = l2_loss_coeff
+    def backward_prop(self):
+        self.backward_calc()
+        if (self.layer_num > 1):
+            self.backward_grad ()
+            self.prev_layer.backward_prop()
 
-  def get_l2_loss(self):
-    return 0
+    def initialize_parameters(self):
+        pass
+
+    def print_forward(self):
+        print("Layer number: " + str(self.layer_num))
+        print("activations:")
+        print(self.activations)
+
+    def print_backward(self):
+        print("Layer number: " + str(self.layer_num))
+        if (self.layer_num > 0):
+            print("dactivations:")
+            print(self.dactivations)
+
+    def set_l2_loss_coeff(self, l2_loss_coeff):
+        self.l2_loss_coeff = l2_loss_coeff
+
+    def get_l2_loss(self):
+        return 0

@@ -1,33 +1,36 @@
 """
-fully connected layer (Hidden) of a neural network
+This layer defines the loss function.
+This layer has identity activation function.
 """
 
 from . import layer
 from . import loss_functions as lf
 
 class LossLayer(layer.Layer):
-  
-  def __init__(self, loss_function_name):
-    super().__init__()
-    self.loss_func = lf.LossFunctions.get_function(loss_function_name)
-    self.loss_func_prime = lf.LossFunctions.get_function(loss_function_name+ "_prime")
 
-  def forward_calc(self, x):
-    self.activations = x
-    
-  # backprop calculations
-  def backward_deactivations(self):
-    # Set the dactivation based on loss function
-    self.prev_layer.dactivations = self.loss_func_prime(self.y, self.activations)
+    def __init__(self, loss_function_name):
+        super().__init__()
+        self.loss_func = lf.LossFunctions.get_function(loss_function_name)
+        self.loss_func_prime = lf.LossFunctions.get_function(loss_function_name+ "_prime")
 
-  def backward_prop(self, y):
-    self.y = y
-    super().backward_prop()
+    def forward_calc(self, x):
+        self.activations = x
 
-  # backprop calculations
-  def loss(self, y):
-    loss_value = self.loss_func(y, self.activations)
-    return loss_value
- 
-  def print_backward(self):
-    pass
+    # backprop calculations
+    def backward_grad(self):
+        # Set the dactivation based on loss function
+        self.prev_layer.dactivations = self.loss_func_prime(self.y, self.activations)
+        
+    def backward_prop(self, y):
+        # copy y in the layer. It is later used during calculation
+        # gradients 
+        self.y = y
+        super().backward_prop()
+
+    # backprop calculations
+    def loss(self, y):
+        loss_value = self.loss_func(y, self.activations)
+        return loss_value
+
+    def print_backward(self):
+        pass

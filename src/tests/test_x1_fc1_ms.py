@@ -24,5 +24,5 @@ y = np.array([[10]])
 net.check_gradient(x, y)
 
 if ((net.layers[1].dweights[0][0]) != 20):
-  print("Error: Expected gradient = 20.0")
-  print("     : Backprop gradient = " + str(net.layers[1].dweights[0][0]))
+    print("Error: Expected gradient = 20.0")
+    print("     : Backprop gradient = " + str(net.layers[1].dweights[0][0]))
