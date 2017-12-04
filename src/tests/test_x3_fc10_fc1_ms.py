@@ -7,6 +7,7 @@ import nnframework.neural_network as nn
 import nnframework.layer_types as lt
 import nnframework.loss_layer as ll
 import nnframework.weight_update_params as wup
+import os
 
 net = nn.NeuralNetwork("test_net", 3)
 
@@ -26,4 +27,7 @@ net.initialize_parameters()
 
 x = np.array([[2], [3], [4]])
 y = np.array([[10]])
-net.check_gradient(x, y)
+if (net.check_gradient(x, y)):
+    print ("Test {0} passed".format(os.path.basename(__file__)))
+else:
+    print ("Test {0} failed".format(os.path.basename(__file__)))        
