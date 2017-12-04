@@ -44,7 +44,7 @@ def adam(layer, wu_params):
         layer.velocity[param] = wu_params.beta1*layer.velocity[param] + (1-wu_params.beta1)*layer.__dict__["d" + param]
 
         # calculate square of gradients
-        layer.sq_grad[param] = wu_params.beta2*layer.sq_derivative[param] + (1 - wu_params.beta2)*np.power(layer.__dict_["d" + param], 2)
+        layer.sq_grad[param] = wu_params.beta2*layer.sq_grad[param] + (1 - wu_params.beta2)*np.power(layer.__dict__["d" + param], 2)
 
         # adjustment
         weight_velocity_adj = layer.velocity[param] * adj

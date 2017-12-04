@@ -84,7 +84,6 @@ class NeuralNetwork(object):
         self.backward_prop(y)
         self.cost = self.loss(y)
 
-        # numerically calculate gradients for each parameter in each layer
         for l in self.layers:
             l.dparams_numerical = {}
             for param in l.parameters:
@@ -102,6 +101,8 @@ class NeuralNetwork(object):
                             print ("       index = " + str(indices))
                             print ("       gradient = " + str(l.__dict__["d" + param][indices]))
                             print ("       numerical gradient = " + str(numerical_grad))
+                            return False
+        return True                   
 
     def calculate_numerical_gradient(self, x, y, layer, param, indices, epsilon=1e-7):
         # store original value of the parameter

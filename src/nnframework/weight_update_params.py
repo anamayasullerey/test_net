@@ -22,4 +22,4 @@ class AdamParams(object):
         self.beta1 = beta1
         self.beta2 = beta2
         self.epsilon = epsilon
-        self.t = 0
+        self.t = 1
