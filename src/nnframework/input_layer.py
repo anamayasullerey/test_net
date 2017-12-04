@@ -1,5 +1,5 @@
 """
-Input layer of a neural network
+Input layer of a neural network.
 """
 
 from . import layer

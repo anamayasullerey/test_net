@@ -10,8 +10,8 @@ class LossLayer(layer.Layer):
 
     def __init__(self, loss_function_name):
         super().__init__()
-        self.loss_func = lf.LossFunctions.get_function(loss_function_name)
-        self.loss_func_prime = lf.LossFunctions.get_function(loss_function_name+ "_prime")
+        self.loss_func = getattr(lf, loss_function_name)
+        self.loss_func_prime = getattr(lf, loss_function_name + "_prime")
 
     def forward_calc(self, x):
         self.activations = x
