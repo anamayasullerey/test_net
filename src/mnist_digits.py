@@ -67,6 +67,7 @@ net.set_l2_loss_coeff(.001)
 
 # define weight update method
 params = wup.GradientDescentParams(.3)
+#params = wup.MomentumParams(.3, 0.9)
 net.set_weight_update_function(params)
 
 # for repeatability during testing
@@ -89,7 +90,6 @@ for epoch in range(1, epochs+1):
   
     for count, mini_batch in enumerate(mini_batches, start=1):
         x, y = pack_np_array(mini_batch)
-
         net.train(x, y)
 
     accuracy = calc_accuracy(validation_data, net)
