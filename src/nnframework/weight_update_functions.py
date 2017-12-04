@@ -1,5 +1,19 @@
 """
 Weight update  functions
+
+A weight update functions take layer as an input and update that layer's 
+parameters. These update functions updates all the parameters defined
+in layer.parameters[] list. The caculation of the derivatives is done
+during the backprop. Any weight update function uses the calculated 
+derivatives to do the parameter update.
+
+Any state required by the weight update function is stored in the layer
+itself. Each weight update funtion has an associated initialization function
+for this state information.
+
+Weight update functions also have an assoctiated clsss that defines the
+weight update parameters. An object of this class is passed along with
+the layer for weigh update.  
 """
 import numpy as np
 

@@ -1,5 +1,5 @@
 """
-fully connected layer (Hidden) of a neural network
+fully connected layer
 """
 
 import numpy as np

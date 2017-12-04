@@ -1,5 +1,7 @@
 """
-Weight update parameters
+Weight update parameters.
+The weight update parameter objects contain the parameters that are
+required by the weight update algorithm.
 """
 
 class GradientDescentParams(object):
