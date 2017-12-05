@@ -28,9 +28,3 @@ def linear_mean_squared_loss(y, a):
 
 def linear_mean_squared_loss_prime(y, a):
     return (a-y)
-
-def get_function(func_name):
-    try:
-        return getattr(LossFunctions, func_name)
-    except :
-        raise ValueError('Loss function "' + func_name + '" not defined')
