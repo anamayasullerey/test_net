@@ -46,7 +46,7 @@ class FcLayer(layer.Layer):
         print(self.bias)
 
     def print_backward(self):
-        super.print_backward()
+        super().print_backward()
         print("dweights:")
         print(self.dweights)
         print("dbias:")
