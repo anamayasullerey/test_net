@@ -10,7 +10,7 @@ def sigmoid_prime(x):
     return sigmoid(x) * (1 - sigmoid(x))
 
 def softmax(x):
-    return np.exp(x) / np.sum(np.exp(x))
+    return np.exp(x-np.max(x, axis=0)) / np.sum(np.exp(x-np.max(x, axis=0)), axis=0)
 
 def softmax_prime(x):
     return softmax(x) * (1 - softmax(x))
