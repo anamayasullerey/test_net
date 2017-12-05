@@ -67,11 +67,9 @@ class NeuralNetwork(object):
 
     def print_state(self):
         print("Printing state")
-        self.input_layer.print_forward()
         for i in range(len(self.layers)):
             self.layers[i].print_forward()
             self.layers[i].print_backward()
-        print(self.dactivation)
 
     def check_gradient(self, x, y):
         # numerically calculate gradients for each parameter
