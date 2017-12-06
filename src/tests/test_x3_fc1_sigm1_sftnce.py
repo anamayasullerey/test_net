@@ -4,17 +4,16 @@ This test has a single fc neuron with weight initialized to 10
 
 import numpy as np
 import nnframework.neural_network as nn
-import nnframework.layer_types as lt
-import nnframework.loss_layer as ll
+import nnframework.layer_dict as ld
 import nnframework.weight_update_params as wup
 import os
 
 net = nn.NeuralNetwork("test_net", 4)
 
-layer = lt.ldict["fc"](4)
+layer = ld.ldict["fc"](4)
 net.add_layer(layer)
 
-layer = ll.LossLayer("softmax_cross_entropy_loss")
+layer = ld.ldict["loss"]("softmax_cross_entropy_loss")
 net.add_layer(layer)
 
 np.random.seed(1)

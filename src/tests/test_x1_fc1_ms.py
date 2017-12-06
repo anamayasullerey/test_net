@@ -1,16 +1,15 @@
 import numpy as np
 import nnframework.neural_network as nn
-import nnframework.layer_types as lt
-import nnframework.loss_layer as ll
+import nnframework.layer_dict as ld
 import nnframework.weight_update_params as wup
 import os
 
 net = nn.NeuralNetwork("test_net", 1)
 
-layer = lt.ldict["fc"](1)
+layer = ld.ldict["fc"](1)
 net.add_layer(layer)
 
-layer = ll.LossLayer("linear_mean_squared_loss")
+layer = ld.ldict["loss"]("linear_mean_squared_loss")
 net.add_layer(layer)
 
 np.random.seed(1)
