@@ -14,16 +14,21 @@ import numpy as np
 def sigmoid_cross_entropy_loss(y, a):
     return  - np.sum((y*np.log(a) + (1-y)*np.log(1-a)))/y.shape[1]
 
+# Not fully confident yet that replacing divide by 0 cases to 0 is 
+# the accurate representation but it does get around the problem of
+# net getting stuck during training
 def sigmoid_cross_entropy_loss_prime(y, a):
     with np.errstate(divide='ignore', invalid='ignore'):
        res = -(np.true_divide(y, a) - np.true_divide(1 - y, 1 - a))
        res[~np.isfinite(res)] = 0  # -inf inf NaN
     return res   
-    #return - (np.true_divide(y, a) - np.true_divide(1 - y, 1 - a))
 
 def softmax_cross_entropy_loss(y, a):
     return - np.sum(y*np.log(a))/y.shape[1]
 
+# Not fully confident yet that replacing divide by 0 cases to 0 is 
+# the accurate representation but it does get around the problem of
+# net getting stuck during training
 def softmax_cross_entropy_loss_prime(y, a):
     with np.errstate(divide='ignore', invalid='ignore'):
        res = -np.true_divide(y, a)

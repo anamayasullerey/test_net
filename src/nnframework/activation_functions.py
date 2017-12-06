@@ -9,6 +9,9 @@ def sigmoidp(x):
 def sigmoidn(x):
     return np.exp(x) / (1.0 + np.exp(x))
 
+# The sigmoid functions for positive and negative valus
+# are done differently to avoid overvflow erros while
+# calculating the exponent
 def sigmoid(x):
     xp = np.multiply(x, (x>0))
     xn = np.multiply(x, (x<0))
@@ -17,6 +20,8 @@ def sigmoid(x):
 def sigmoid_prime(x):
     return sigmoid(x) * (1 - sigmoid(x))
 
+# softmax neumerator and denominators are both devided by the largest component of
+# the denominator to avoid overflow errors
 def softmax(x):
     return np.exp(x-np.max(x, axis=0)) / np.sum(np.exp(x-np.max(x, axis=0)), axis=0)
 
