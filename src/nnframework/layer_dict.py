@@ -1,9 +1,11 @@
 """
-Activation functions and their derivatives
+Layer dictionary
 """
 from . import activation_functions as af
-from . import fc_layer
 from . import layer
+from . import fc_layer
+from . import input_layer
+from . import loss_layer
 
 stateless_propagation_names = ["sigmoid", "softmax", "tanh", "relu"]
 ldict = {}
@@ -21,3 +23,5 @@ for prop in stateless_propagation_names:
                         "act_func_prime":staticmethod(getattr(af, prop + "_prime"))})
 
 ldict["fc"] = fc_layer.FcLayer
+ldict["loss"] = loss_layer.LossLayer
+ldict["input"] = input_layer.InputLayer
