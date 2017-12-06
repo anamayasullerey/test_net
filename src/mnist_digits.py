@@ -6,14 +6,14 @@ import nnframework.weight_update_params as wup
 import utils.load_mnist as load_mnist
 import random
 
-# function for checking accuracy of a test/validation set
+# Function for checking accuracy of a test/validation set
 def calc_accuracy(data, net):
     test_results = [(net.predict_classify(x) == y) for x, y in data]
     total_correct = sum(correct for correct in test_results)
     accuracy = total_correct * 100 / len(test_results)
     return accuracy
 
-# function for packing data from a list to numpy array
+# Function for packing data from a list to numpy array
 def pack_np_array(data):
     x = np.array(data[0][0])
     y = np.array(data[0][1])
@@ -22,9 +22,9 @@ def pack_np_array(data):
         y = np.append(y, data[i][1], 1)
     return x, y
 
-# load the training, validation and test data
-# training data list has y as vectors
-# validation and test data have y as final classified values    
+# Load the training, validation and test data
+# Training data list has y as vectors
+# Validation and test data have y as final classified values    
 training_data_zip, validation_data_zip, test_data_zip = load_mnist.load_mnist()
 training_data = list(training_data_zip)
 validation_data = list(validation_data_zip)
@@ -36,11 +36,11 @@ net = nn.NeuralNetwork("test_net", 784)
 
 # Step 2: Add hidden layers in sequence
 
-# fully connected layer
+# Fully connected layer
 layer = lt.ldict["fc"](800)
 net.add_layer(layer)
 
-# relu activation layer
+# Relu activation layer
 layer = lt.ldict["relu"](800)
 net.add_layer(layer)
 
@@ -56,31 +56,32 @@ net.add_layer(layer)
 layer = lt.ldict["sigmoid"](10)
 net.add_layer(layer)
 
-# add loss layer
+# Add loss layer
 layer = ll.LossLayer("sigmoid_cross_entropy_loss")
 net.add_layer(layer)
 
-# specify l2 loss
+# Specify l2 loss
 net.set_l2_loss_coeff(.001)
 
 #  Neural Network definition done
 
-# define weight update method
+# Define weight update method
 params = wup.GradientDescentParams(.3)
-#params = wup.MomentumParams(.3, 0.9)
+# params = wup.MomentumParams(.3)
+# params = wup.AdamParams()
 net.set_weight_update_function(params)
 
-# for repeatability during testing
+# For repeatability during testing
 np.random.seed(1)
 
-# initialize the network
+# Initialize the network
 net.initialize_parameters()
 
-# set training related parameters
+# Set training related parameters
 mini_batch_size = 32
-epochs = 3
+epochs = 10
 
-# train the network
+# Train the network
 for epoch in range(1, epochs+1):
     print("Epoch " + str(epoch))
     random.shuffle(training_data)
