@@ -3,8 +3,16 @@ Activation functions and their derivatives
 """
 import numpy as np
 
-def sigmoid(x):
+def sigmoidp(x):
     return 1.0 / (1.0 + np.exp(-x))
+
+def sigmoidn(x):
+    return np.exp(x) / (1.0 + np.exp(x))
+
+def sigmoid(x):
+    xp = np.multiply(x, (x>0))
+    xn = np.multiply(x, (x<0))
+    return sigmoidp(xp) + sigmoidn(xn) - 0.5
 
 def sigmoid_prime(x):
     return sigmoid(x) * (1 - sigmoid(x))

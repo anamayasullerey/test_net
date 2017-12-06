@@ -17,7 +17,7 @@ class MomentumParams(object):
 
 class AdamParams(object):
     weight_update_func_name = "adam"
-    def __init__(self, learning_rate=0.1, beta1=0.9, beta2=0.999, epsilon=1e-8):
+    def __init__(self, learning_rate=0.01, beta1=0.9, beta2=0.999, epsilon=1e-8):
         self.learning_rate = learning_rate
         self.beta1 = beta1
         self.beta2 = beta2
