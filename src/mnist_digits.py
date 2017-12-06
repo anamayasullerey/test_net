@@ -1,7 +1,6 @@
 import numpy as np
 import nnframework.neural_network as nn
-import nnframework.layer_types as lt
-import nnframework.loss_layer as ll
+import nnframework.layer_dict as ld
 import nnframework.weight_update_params as wup
 import utils.load_mnist as load_mnist
 import random
@@ -37,27 +36,27 @@ net = nn.NeuralNetwork("test_net", 784)
 # Step 2: Add hidden layers in sequence
 
 # Fully connected layer
-layer = lt.ldict["fc"](800)
+layer = ld.ldict["fc"](800)
 net.add_layer(layer)
 
 # Relu activation layer
-layer = lt.ldict["relu"](800)
+layer = ld.ldict["relu"](800)
 net.add_layer(layer)
 
-layer = lt.ldict["fc"](80)
+layer = ld.ldict["fc"](80)
 net.add_layer(layer)
 
-layer = lt.ldict["relu"](80)
+layer = ld.ldict["relu"](80)
 net.add_layer(layer)
 
-layer = lt.ldict["fc"](10)
+layer = ld.ldict["fc"](10)
 net.add_layer(layer)
 
-layer = lt.ldict["sigmoid"](10)
+layer = ld.ldict["sigmoid"](10)
 net.add_layer(layer)
 
 # Add loss layer
-layer = ll.LossLayer("sigmoid_cross_entropy_loss")
+layer = ld.ldict["loss"]("sigmoid_cross_entropy_loss")
 net.add_layer(layer)
 
 # Specify l2 loss
