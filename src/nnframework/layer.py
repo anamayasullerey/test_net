@@ -27,7 +27,7 @@ class Layer(object):
     Activation function needs to be defined in the extended class.
     """
     def forward_calc(self, x):
-        self.activations = self.act_func(x)
+        pass
 
     def forward_prop(self, x):
         self.forward_calc(x)
@@ -38,7 +38,7 @@ class Layer(object):
         pass
 
     def backward_grad(self):
-        self.prev_layer.dactivations = self.dactivations * self.act_func_prime(self.prev_layer.activations)
+        pass
 
     def backward_prop(self):
         self.backward_calc()

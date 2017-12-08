@@ -5,7 +5,7 @@ fully connected layer
 import numpy as np
 from . import layer
 
-class FcLayer(layer.Layer):
+class FcLayerH(layer.Layer):
 
     def __init__(self, num_neurons):
         super().__init__()

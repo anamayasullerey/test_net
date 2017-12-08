@@ -1,27 +1,26 @@
 """
-Layer dictionary
+layer dictionries
 """
-from . import activation_functions as af
 from . import layer
-from . import fc_layer
-from . import input_layer
-from . import loss_layer
+from . import fc_layer_h
+from . import relu_layer_h
+from . import sigmoid_layer_h
+from . import tanh_layer_h
 
-stateless_propagation_names = ["sigmoid", "softmax", "tanh", "relu"]
-ldict = {}
+from . import loss_layer_o
+#from . import sigmoid_layer_o
+#from . import softmax_layer_o
 
-class stateless_layers(layer.Layer):
-    def __init__(self, num_neurons):
-        super().__init__()
-        self.num_neurons = num_neurons
+hdict = {}
 
-# Create all stateless propagations
-for prop in stateless_propagation_names:
-    ldict[prop] = type(prop,
-                       (stateless_layers,),
-                       {"act_func":staticmethod(getattr(af, prop)),
-                        "act_func_prime":staticmethod(getattr(af, prop + "_prime"))})
+hdict["fc"] = fc_layer_h.FcLayerH
+hdict["relu"] = relu_layer_h.ReluLayerH
+hdict["sigmoid"] = sigmoid_layer_h.SigmoidLayerH
+hdict["tanh"] = tanh_layer_h.TanhLayerH
 
-ldict["fc"] = fc_layer.FcLayer
-ldict["loss"] = loss_layer.LossLayer
-ldict["input"] = input_layer.InputLayer
+odict = {}
+
+odict["loss"] = loss_layer_o.LossLayerO
+#odict["sigmoid"] = sigmoid_layer_o.SigmoidLayerO
+#odict["softmax"] = softmax_layer_o.SoftmaxLayerO
+

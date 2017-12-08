@@ -10,12 +10,12 @@ import os
 
 net = nn.NeuralNetwork("test_net", 3)
 
-layer = ld.ldict["fc"](1)
+layer = ld.hdict["fc"](1)
 net.add_layer(layer)
-layer = ld.ldict["relu"](1)
+layer = ld.hdict["relu"](1)
 net.add_layer(layer)
 
-layer = ld.ldict["loss"]("linear_mean_squared_loss")
+layer = ld.odict["loss"]("linear_mean_squared_loss")
 net.add_layer(layer)
 
 np.random.seed(1)

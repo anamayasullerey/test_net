@@ -36,27 +36,27 @@ net = nn.NeuralNetwork("test_net", 784)
 # Step 2: Add hidden layers in sequence
 
 # Fully connected layer
-layer = ld.ldict["fc"](800)
+layer = ld.hdict["fc"](800)
 net.add_layer(layer)
 
 # Relu activation layer
-layer = ld.ldict["relu"](800)
+layer = ld.hdict["relu"](800)
 net.add_layer(layer)
 
-layer = ld.ldict["fc"](80)
+layer = ld.hdict["fc"](80)
 net.add_layer(layer)
 
-layer = ld.ldict["relu"](80)
+layer = ld.hdict["relu"](80)
 net.add_layer(layer)
 
-layer = ld.ldict["fc"](10)
+layer = ld.hdict["fc"](10)
 net.add_layer(layer)
 
-layer = ld.ldict["sigmoid"](10)
+layer = ld.hdict["sigmoid"](10)
 net.add_layer(layer)
 
 # Add loss layer
-layer = ld.ldict["loss"]("sigmoid_cross_entropy_loss")
+layer = ld.odict["loss"]("sigmoid_cross_entropy_loss")
 net.add_layer(layer)
 
 # Specify l2 loss
@@ -72,7 +72,7 @@ net.set_weight_update_function(params)
 
 # For repeatability during testing
 np.random.seed(1)
-
+random.seed(1)
 # Initialize the network
 net.initialize_parameters()
 
@@ -91,7 +91,11 @@ for epoch in range(1, epochs+1):
     for count, mini_batch in enumerate(mini_batches, start=1):
         x, y = pack_np_array(mini_batch)
         net.train(x, y)
-
+        if (count%800 == 0):
+            accuracy = calc_accuracy(validation_data, net)
+            print("Count {0} validation data accuracy = {1} %.".format(count, accuracy))
+            print()
+        
     accuracy = calc_accuracy(validation_data, net)
     print("Epoch {0} validation data accuracy = {1} %.".format(epoch, accuracy))
     print()

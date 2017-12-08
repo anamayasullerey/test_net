@@ -10,12 +10,12 @@ import os
 
 net = nn.NeuralNetwork("test_net", 1)
 
-layer = ld.ldict["fc"](1)
+layer = ld.hdict["fc"](1)
 net.add_layer(layer)
-layer = ld.ldict["sigmoid"](1)
+layer = ld.hdict["sigmoid"](1)
 net.add_layer(layer)
 
-layer = ld.ldict["loss"]("sigmoid_cross_entropy_loss")
+layer = ld.odict["loss"]("sigmoid_cross_entropy_loss")
 net.add_layer(layer)
 
 np.random.seed(1)

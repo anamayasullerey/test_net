@@ -14,18 +14,11 @@ net.add_layer(layer)
 
 np.random.seed(1)
 
-params = wup.GradientDescentParams(0)
+params = wup.AdamParams()
 net.set_weight_update_function(params)
 net.initialize_parameters()
 net.layers[1].weights[0,0] = 10
 
 x = np.array([[2]])
 y = np.array([[10]])
-if (net.check_gradient(x, y) and ((net.layers[1].dweights[0][0]) == 20)):
-    print ("Test {0} passed".format(os.path.basename(__file__)))
-else:
-    print ("Test {0} failed".format(os.path.basename(__file__)))        
-
-if ((net.layers[1].dweights[0][0]) != 20):
-    print("Error: Expected gradient = 20.0")
-    print("     : Backprop gradient = " + str(net.layers[1].dweights[0][0]))
+net.train(x,y)
