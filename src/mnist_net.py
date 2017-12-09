@@ -52,11 +52,8 @@ net.add_layer(layer)
 layer = ld.hdict["fc"](10)
 net.add_layer(layer)
 
-#layer = ld.hdict["sigmoid"](10)
-#net.add_layer(layer)
-
 # Add loss layer
-layer = ld.odict["sigmoid"](10)
+layer = ld.odict["softmax"](10)
 net.add_layer(layer)
 
 # Specify l2 loss
