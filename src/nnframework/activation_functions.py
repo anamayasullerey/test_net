@@ -25,12 +25,6 @@ def sigmoid_prime(x):
 def softmax(x):
     return np.exp(x-np.max(x, axis=0)) / np.sum(np.exp(x-np.max(x, axis=0)), axis=0)
 
-def softmax_prime(x):
-    a = softmax(x)
-    res = (np.identity(a.shape[0]) - np.transpose(a))
-    res = res*a
-    return res
-
 def tanh(x):
     return np.tanh(x)
 

@@ -52,11 +52,11 @@ net.add_layer(layer)
 layer = ld.hdict["fc"](10)
 net.add_layer(layer)
 
-layer = ld.hdict["sigmoid"](10)
-net.add_layer(layer)
+#layer = ld.hdict["sigmoid"](10)
+#net.add_layer(layer)
 
 # Add loss layer
-layer = ld.odict["loss"]("sigmoid_cross_entropy_loss")
+layer = ld.odict["sigmoid"](10)
 net.add_layer(layer)
 
 # Specify l2 loss
@@ -91,7 +91,7 @@ for epoch in range(1, epochs+1):
     for count, mini_batch in enumerate(mini_batches, start=1):
         x, y = pack_np_array(mini_batch)
         net.train(x, y)
-        if (count%800 == 0):
+        if (count%100 == 0):
             accuracy = calc_accuracy(validation_data, net)
             print("Count {0} validation data accuracy = {1} %.".format(count, accuracy))
             print()

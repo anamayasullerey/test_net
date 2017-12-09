@@ -1,5 +1,5 @@
 """
-softmax output layer
+sigmoid output layer
 """
 
 import numpy as np
@@ -7,14 +7,14 @@ from . import loss_functions as lf
 from . import activation_functions as af
 from . import layer
 
-class SoftmaxLayer(layer.Layer):
+class SigmoidLayer(layer.Layer):
 
     def __init__(self, num_neurons):
         super().__init__()
         self.num_neurons = num_neurons
 
     def forward_calc(self, x):
-        self.activations = af.softmax(x)
+        self.activations = af.sigmoid(x)
 
     def backward_grad(self):
         self.prev_layer.dactivations = (self.activations - self.y)
@@ -23,8 +23,9 @@ class SoftmaxLayer(layer.Layer):
         self.y = y
         super().backward_prop()
 
+    # backprop calculations
     def loss(self, y):
-        loss_value = lf.softmax_cross_entropy_loss(y, self.activations)
+        loss_value = lf.sigmoid_cross_entropy_loss(y, self.activations)
         return loss_value
 
     def print_backward(self):
