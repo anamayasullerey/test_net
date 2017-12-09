@@ -8,7 +8,7 @@ import nnframework.layer_dict as ld
 import nnframework.weight_update_params as wup
 import os
 
-net = nn.NeuralNetwork("test_net", 4)
+net = nn.NeuralNetwork("test_net", 3)
 
 layer = ld.hdict["fc"](4)
 net.add_layer(layer)
@@ -21,7 +21,7 @@ params = wup.GradientDescentParams(0)
 net.set_weight_update_function(params)
 net.initialize_parameters()
 
-x = np.array([[1], [2], [3], [4]])
+x = np.array([[1], [2], [3]])
 y = np.array([[1], [0], [0], [0]])
 if (net.check_gradient(x, y)):
     print ("Test {0} passed".format(os.path.basename(__file__)))
