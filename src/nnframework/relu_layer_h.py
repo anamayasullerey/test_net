@@ -6,7 +6,7 @@ import numpy as np
 from . import activation_functions as af
 from . import layer
 
-class ReluLayerH(layer.Layer):
+class ReluLayer(layer.Layer):
 
     def __init__(self, num_neurons):
         super().__init__()

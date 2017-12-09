@@ -6,7 +6,7 @@ This layer has identity activation function.
 from . import layer
 from . import loss_functions as lf
 
-class LossLayerO(layer.Layer):
+class LossLayer(layer.Layer):
 
     def __init__(self, loss_function_name):
         super().__init__()

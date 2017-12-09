@@ -6,7 +6,7 @@ import numpy as np
 from . import activation_functions as af
 from . import layer
 
-class SigmoidLayerH(layer.Layer):
+class SigmoidLayer(layer.Layer):
 
     def __init__(self, num_neurons):
         super().__init__()
