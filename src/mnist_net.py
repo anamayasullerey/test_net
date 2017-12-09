@@ -56,7 +56,7 @@ net.add_layer(layer)
 #net.add_layer(layer)
 
 # Add loss layer
-layer = ld.odict["softmax"](10)
+layer = ld.odict["sigmoid"](10)
 net.add_layer(layer)
 
 # Specify l2 loss
@@ -91,10 +91,6 @@ for epoch in range(1, epochs+1):
     for count, mini_batch in enumerate(mini_batches, start=1):
         x, y = pack_np_array(mini_batch)
         net.train(x, y)
-        if (count%100 == 0):
-            accuracy = calc_accuracy(validation_data, net)
-            print("Count {0} validation data accuracy = {1} %.".format(count, accuracy))
-            print()
         
     accuracy = calc_accuracy(validation_data, net)
     print("Epoch {0} validation data accuracy = {1} %.".format(epoch, accuracy))
