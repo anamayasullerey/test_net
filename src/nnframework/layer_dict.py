@@ -9,7 +9,7 @@ from . import tanh_layer_h
 
 from . import loss_layer_o
 from . import sigmoid_layer_o
-#from . import softmax_layer_o
+from . import softmax_layer_o
 
 hdict = {}
 
@@ -22,5 +22,4 @@ odict = {}
 
 odict["loss"] = loss_layer_o.LossLayer
 odict["sigmoid"] = sigmoid_layer_o.SigmoidLayer
-#odict["softmax"] = softmax_layer_o.SoftmaxLayer
-
+odict["softmax"] = softmax_layer_o.SoftmaxLayer
