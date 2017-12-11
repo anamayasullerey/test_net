@@ -2,7 +2,7 @@ import numpy as np
 import nnframework.neural_network as nn
 import nnframework.layer_dict as ld
 import nnframework.weight_update_params as wup
-import utils.load_mnist as load_mnist
+import mnist.utils.load_mnist as load_mnist
 import random
 
 # Function for checking accuracy of a test/validation set
