@@ -1,8 +1,8 @@
 import nn_grad_test as nt
 import numpy as np
-import nnframework.neural_network as nn
-import nnframework.layer_dict as ld
-import nnframework.weight_update_params as wup
+import nn_framework.neural_network as nn
+import nn_framework.layer_dict as ld
+import nn_framework.weight_update_params as wup
 
 class test_grad_x3_fc10_rl10_ms(nt.NnGradTest):
         
