@@ -1,10 +1,10 @@
-import nn_test as nt
+import nn_grad_test as nt
 import numpy as np
 import nnframework.neural_network as nn
 import nnframework.layer_dict as ld
 import nnframework.weight_update_params as wup
 
-class test_x3_fc1_sigmo1(nt.NnTest):
+class test_x3_fc1_sigmo1(nt.NnGradTest):
         
     def define_nn(self):
         self.net = nn.NeuralNetwork("test_net", 1)
