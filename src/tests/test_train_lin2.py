@@ -40,8 +40,6 @@ class TestTrainLin2(unittest.TestCase):
         
         x = np.array([[10], [10], [10], [10]])
         y_exp = a * x + b
-        print(y_exp)
-        print(net.predict(x))
         self.assertTrue(((np.absolute(net.predict(x) - y_exp)/y_exp) < 0.1).all())
 
 
