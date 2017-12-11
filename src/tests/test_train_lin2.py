@@ -31,13 +31,17 @@ class TestTrainLin2(unittest.TestCase):
         net.initialize_parameters()
 
         a = np.array([[1], [2], [3], [4]])
+        b = np.array([[4], [5], [6], [7]])
 
         for i in range(1000):
-            x = (np.random.rand(4,32) - 0.5) * 10
-            y = a * x
+            x = (np.random.rand(4,32) - 0.5) * 10 
+            y = a * x + b
             net.train(x,y)
         
         x = np.array([[10], [10], [10], [10]])
-        self.assertTrue(((np.absolute(net.predict(x) - a*x)/a*x) < 0.1).all())
+        y_exp = a * x + b
+        print(y_exp)
+        print(net.predict(x))
+        self.assertTrue(((np.absolute(net.predict(x) - y_exp)/y_exp) < 0.1).all())
 
 

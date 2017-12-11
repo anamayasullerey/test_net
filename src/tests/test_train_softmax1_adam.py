@@ -5,7 +5,7 @@ import nnframework.neural_network as nn
 import nnframework.layer_dict as ld
 import nnframework.weight_update_params as wup
 
-class TestTrainSoftmax1(unittest.TestCase):
+class TestTrainSoftmax1Adam(unittest.TestCase):
         
     def test(self):
         net = nn.NeuralNetwork("test_net", 1)
