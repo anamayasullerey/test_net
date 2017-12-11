@@ -20,10 +20,9 @@ class test_grad_x3_fc10_fc1_ms(nt.NnGradTest):
 
         np.random.seed(1)
 
-        self.params = wup.GradientDescentParams(0)
+        self.params = wup.GradientDescentParams(0.1)
         self.net.set_weight_update_function(self.params)
         self.net.initialize_parameters()
-        self.net.layers[1].weights[0,0] = 10
     
     def set_training_example(self):
         self.x = np.array([[2], [3], [4]])

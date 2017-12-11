@@ -20,7 +20,7 @@ class test_grad_x3_fc10_rl10_ms(nt.NnGradTest):
 
         np.random.seed(1)
 
-        self.params = wup.GradientDescentParams(0)
+        self.params = wup.GradientDescentParams(0.1)
         self.net.set_weight_update_function(self.params)
         self.net.initialize_parameters()
     
