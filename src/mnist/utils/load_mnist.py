@@ -14,21 +14,19 @@ def load_mnist():
     data_file = gzip.open(os.path.join(os.curdir, 'data', 'mnist.pkl.gz'), 'rb')
     training_data, validation_data, test_data = _pickle.load(data_file, encoding='iso-8859-1')
     data_file.close()
+    
+    res_training_data = massage_data(training_data)
+    res_validation_data = massage_data(validation_data)
+    res_test_data = massage_data(test_data)
 
-    training_inputs = [np.reshape(x, (784, 1)) for x in training_data[0]]
-    training_results = [vectorized_result(y) for y in training_data[1]]
-    training_data = zip(training_inputs, training_results)
+    return res_training_data, res_validation_data, res_test_data
 
-    validation_inputs = [np.reshape(x, (784, 1)) for x in validation_data[0]]
-    validation_results = validation_data[1]
-    validation_data = zip(validation_inputs, validation_results)
-
-    test_inputs = [np.reshape(x, (784, 1)) for x in test_data[0]]
-    test_data = zip(test_inputs, test_data[1])
-    return training_data, validation_data, test_data
-
-
-def vectorized_result(y):
-    e = np.zeros((10, 1))
-    e[y] = 1.0
-    return e
+def massage_data(data):
+    num_samples = data[1].shape[0]
+    odata_class = data[1].reshape((num_samples,1))
+    odata_onehot = np.zeros(shape=(num_samples, 10))
+    odata_onehot[np.arange(num_samples), data[1]] = 1
+    odata_onehot = odata_onehot.astype(float)
+    result = np.append(data[0], odata_onehot, axis=1)
+    result = np.append(result, odata_class, axis=1)
+    return result

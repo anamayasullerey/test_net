@@ -63,8 +63,14 @@ class NeuralNetwork(object):
         return self.layers[-1].activations
 
     def predict_classify(self, x):
-        return np.argmax(self.predict(x))
+        return np.argmax(self.predict(x), axis=0)
 
+    def classification_accuracy(self, x, y_class):
+        y_pred = self.predict_classify(x)
+        total_correct = np.sum(y_pred == y_class)
+        accuracy = total_correct * 100 / y_class.shape[0]
+        return accuracy
+   
     def print_state(self):
         print("Printing state")
         for i in range(len(self.layers)):
