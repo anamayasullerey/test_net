@@ -13,21 +13,21 @@ Inputl layer is a module of nn_framwork but it is automatically generated when a
 
 ### hidden layers
 Listed below are the input layer types and the code to generate them.  many frameworks represent a layer as a compo
-* fully connected : Wx + b 
+* fully connected (y = wx + b)
 ```
-layer = ld.hdict\["fc"\](num_neurons) |
+layer = ld.hdict["fc"](num_neurons) |
 ```
-* relu :
+* relu
 ```
-layer = ld.hdict\["relu"\](num_neurons)
+layer = ld.hdict["relu"](num_neurons)
 ```
-* sigmoid : 
+* sigmoid
 ```
-layer = ld.hdict\["sigmoid"\](num_neurons) |
+layer = ld.hdict["sigmoid"](num_neurons) |
 ```
-* tanh : tanh(x) | layer = ld.hdict\["tanh"\](num_neurons) |
+* tanh
 ```
-layer = ld.hdict\["tanh"\](num_neurons) |
+layer = ld.hdict["tanh"](num_neurons) |
 ```
 
 **_Note that "layer" frequently represents a fully connected function followed by an activation function. In nn_framework these are separate layers. _**
