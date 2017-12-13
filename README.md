@@ -7,7 +7,7 @@ After downloading the git repository **"nnf/src"** directory needs to be added t
 ## 1. MNIST digit classifier example 
 MNIST digit classfier example using nn_framework gives a feel of the architecture of nn_framework. It is recommended to follow the documentation and create a classifier in Jupyter notebook. The example, **mnist_net.py** is also checked in as python module and can be run in a shell.
 
-## 2. nn_framework documentation
+## 2. [nn_framework documentation](nn_framework_manual.md)
 The documentation on nn_framework explains the featrues of the nn_framework. It also covers the important functions of the API.
 
 # Modifying nn_framework
