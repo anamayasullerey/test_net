@@ -25,7 +25,7 @@ At this stage the network is defined. The check_arch() function checks if networ
 net.check_arch()
 ```
 
-The network can be initialized (random initialization) with the following code
+The network needs to be initialized (random initialization) with the following code
 ```
 net.initialize_parameters()
 ```
