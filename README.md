@@ -30,9 +30,9 @@ layer = ld.hdict["sigmoid"](number_of_neurons)
 layer = ld.hdict["tanh"](number_of_neurons)
 ```
 
-**_Note that "layer" frequently represents a fully connected function followed by an activation function. In nn_framework these are separate layers. _**
+**_Note that "layer" frequently represents a fully connected function followed by an activation function. In nn_framework these are separate layers._**
 
-### hidden layers
+### output layers
 Listed below are the output layer types and the code to generate them.
 * loss: This is the generic output layer that has an identity activation function (y=x). A loss function is specified the when this output layer is created. Following loss functions are supported for loss output layer.
 o sigmoid_cross_entropy_loss
