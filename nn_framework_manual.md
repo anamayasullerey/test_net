@@ -1,5 +1,5 @@
 ## neural_network
-This class captures overall architecture of the neural network. neural_network module is imported by the following statement.
+This class captures architecture of the neural network. neural_network module is imported by the following statement.
 ```
 import nn_framework.neural_network as nn
 
