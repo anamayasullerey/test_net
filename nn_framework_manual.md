@@ -13,41 +13,41 @@ A neural network object is created by the following statement.
 net = nn.NeuralNetwork("name", number_of_inputs)
 ```
 
-## 1.2.3 Adding layers
+### 1.2.3 Adding layers
 Once created, layers are sequentially added to the network from input to output. The final layer is the output layer.
 ```
 net.add_layer(layer)
 ```
 
-## 1.2.4 Specifying L2 loss coefficient
+### 1.2.4 Specifying L2 loss coefficient
 ```
 net.set_l2_loss_coeff(l2_loss_coefficient)
 ```
 
-## 1.2.5 Setting weight update function
+### 1.2.5 Setting weight update function
 ```
 net.set_weight_update_function(weight_update_parameters)
 ```
 
-## 1.2.6 Sanity check
+### 1.2.6 Sanity check
 Once the network is defined a sanity check of the architecture is done by calling check_arch() function.
 ```
 net.check_arch()
 ```
-## 1.2.7 Initialization
+### 1.2.7 Initialization
 The network needs to be initialized (random initialization) before training.
 ```
 net.initialize_parameters()
 ```
 
-## 1.2.8 Training
+### 1.2.8 Training
 ```
 # x : input 2D numpy array of size (number of inputs * batch size)
 # y : output 2D numpy array of size (number of outputs * batch size)
 net.train(x, y) 
 ```
 
-## 1.2.9 Predictions
+### 1.2.9 Predictions
 ```
 y = net.predict(x) 
 ```
@@ -111,6 +111,10 @@ This layer has a softmax activation function with a softmax cross entropy loss. 
 layer = ld.odict["softmax"](number_of_neurons)
 ```
 ## 3. Weight update functions
+Weight update module is imported by the following statement.
+```
+import nn_framework.weight_update_params as wup
+```
 Weight update function is passed to the net by the follwoing api.
 ```
 net.set_weight_update_function(weight_update_params)
