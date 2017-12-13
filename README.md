@@ -1,9 +1,9 @@
 # Introduction
 nn_framework is a basic framework for beginner level AI learners to experiment with neural network concepts. It is inspired by and covers some of the concepts covered in first three courses of the deep learning specialization by [Prof Andrew Ng](http://www.andrewng.org/ )  ([deeplearning.ai](https://www.deeplearning.ai/)). This framework tries to make the components plug and play.
 
-# Components
+# Modules
 ## layers
-Layers in nn_framework is a entity that specifies forward propagation and backward propagation methods. Every layer stores activations and corresponding input derivatives (dactivations). The layers are stored in two layer dictionaries, one for hidden layers (hdict) and one for output layers (ldict). Layer dictionaries can be imported by the following statement.
+Layers in nn_framework is a entity that specifies forward propagation and backward propagation methods. Every layer stores activations and corresponding input derivatives (dactivations). The layers are stored in two layer dictionaries, one for hidden layers (hdict) and one for output layers (ldict). Layer dictionaries are  imported by the following statement.
 
     import nn_framework.layer_dict as ld
 
@@ -16,6 +16,13 @@ The following table lists out the hidden layers.
 | sigmoid | sigmoid(x) | layer = ld.hdict\["sigmoid"\](num_neurons) |
 | tanh | tanh(x) | layer = ld.hdict\["tanh"\](num_neurons) |
 
+The following table lists out the output layers.
+
+|  layer | activation | loss function |  code to create the layer |
+|---------|--------------|-------------------------|----------------|
+| sigmoid | sigmoid(x) | sigmoid cross entropy loss | ld.odict\["sigmoid"\](num_neurons)
+| softmax | softmax(x) | softmax cross entropy loss | ld.odict\["softmax"\](num_neurons)
+| loss | None | selectable | ld.odict\["loss"\](num_neurons)
 
 ## neural_network
-This is the class that captures overall architecture of the neural network
+This is the class that captures overall architecture of the neural network. neural_network module can 
