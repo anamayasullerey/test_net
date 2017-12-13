@@ -4,7 +4,7 @@ nn_framework is designed for beginner level AI learners to experiment with neura
 # How to start
 After downloading the git repository **"nnf/src"** directory needs to be added to **$PYTHONPATH**.
 
-## 1. MNIST digit classifier example 
+## 1. [MNIST digit classifier example](docs/mnist_net.ipynb) 
 MNIST digit classfier example using nn_framework gives a feel of the architecture of nn_framework. It is recommended to follow the documentation and create a classifier in Jupyter notebook. The example, **mnist_net.py** is also checked in as python module and can be run in a shell.
 
 ## 2. [nn_framework documentation](nn_framework_manual.md)
