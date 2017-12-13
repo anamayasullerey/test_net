@@ -6,6 +6,9 @@ from . import layer
 
 class InputLayer(layer.Layer):
 
+    layer_name = "input"
+    layer_type = "input"
+    
     def __init__(self, num_inputs):
         super().__init__()
         self.num_neurons = num_inputs

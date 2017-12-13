@@ -7,6 +7,9 @@ from . import layer
 
 class FcLayer(layer.Layer):
 
+    layer_name = "fc"
+    layer_type = "hidden"
+    
     def __init__(self, num_neurons):
         super().__init__()
         self.num_neurons = num_neurons

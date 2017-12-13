@@ -19,6 +19,17 @@ class NeuralNetwork(object):
         layer.next_layer = None
         self.layers.append(layer)
 
+    def check_arch(self):
+        for layer in self.layers:
+            layer.check()          
+        assert type(self.layers[0]).layer_type is "input", "Error: First layer (layer 0) is not an input layer"
+        assert type(self.layers[-1]).layer_type is "output", "Error: Last layer is not an output layer"
+        for i in range(1, len(self.layers)-2):
+            error_msg = "Layer number " + str(i) + ": layer type :" + type(self.layers[i]).layer_type + "\n"
+            error_msg += "Error: Intermediate layer must be of type hidden"
+            assert type(self.layers[i]).layer_type is "hidden", error_msg
+                   
+        
     def set_weight_update_function(self, wu_params):
         self.weight_update_func= getattr(wuf, wu_params.weight_update_func_name)
         self.weight_update_init_func = getattr(wuf, wu_params.weight_update_func_name + "_init")

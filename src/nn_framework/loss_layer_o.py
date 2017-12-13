@@ -8,6 +8,9 @@ from . import loss_functions as lf
 
 class LossLayer(layer.Layer):
 
+    layer_name = "loss"
+    layer_type = "output"
+    
     def __init__(self, loss_function_name):
         super().__init__()
         self.loss_func = getattr(lf, loss_function_name)

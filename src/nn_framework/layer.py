@@ -22,6 +22,10 @@ class Layer(object):
         self.l2_loss_coeff = 0
         self.parameters = []
 
+     
+    def check(self):
+        pass
+    
     """
     Forward propagation related calculations.
     Activation function needs to be defined in the extended class.
@@ -65,3 +69,9 @@ class Layer(object):
 
     def get_l2_loss(self):
         return 0
+
+    def check_num_neurons(self):
+        error_str = "Error in layer {0}".format(self.layer_num) 
+        error_str = "Number of neurons in " + type(self).layer_name + " " + type(self).layer_type
+        error_str += " layer does not match the number of neurons in previous layer"
+        assert self.prev_layer.num_neurons == self.num_neurons,  error_str

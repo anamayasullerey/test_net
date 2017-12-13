@@ -42,10 +42,11 @@ net.add_layer(layer)
 layer = ld.odict["softmax"](10)
 net.add_layer(layer)
 
+#  Neural Network definition done
+net.check_arch()
+
 # Specify l2 loss
 net.set_l2_loss_coeff(.001)
-
-#  Neural Network definition done
 
 # Define weight update method
 params = wup.GradientDescentParams(.3)
