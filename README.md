@@ -15,19 +15,19 @@ Inputl layer is a module of nn_framwork but it is automatically generated when a
 Listed below are the input layer types and the code to generate them.
 * fully connected (y = wx + b)
 ```
-layer = ld.hdict["fc"](num_neurons) |
+layer = ld.hdict["fc"](number_of_neurons)
 ```
 * relu
 ```
-layer = ld.hdict["relu"](num_neurons)
+layer = ld.hdict["relu"](number_of_neurons)
 ```
 * sigmoid
 ```
-layer = ld.hdict["sigmoid"](num_neurons) |
+layer = ld.hdict["sigmoid"](number_of_neurons)
 ```
 * tanh
 ```
-layer = ld.hdict["tanh"](num_neurons) |
+layer = ld.hdict["tanh"](number_of_neurons)
 ```
 
 **_Note that "layer" frequently represents a fully connected function followed by an activation function. In nn_framework these are separate layers. _**
@@ -41,7 +41,14 @@ o linear_mean_squared_loss
 self.layer = ld.odict["loss"]("linear_mean_squared_loss")
 ```
 * sigmoid: This layer has a sigmoid activation function as well a sigmoid cross entropy loss.
-* softmax: This layer has a softmax activation function with a softmax cross entropy loss. When using this layer the outputs need to be logits (one hot bit vectors)
+```
+self.layer = ld.odict["sigmoid"](number_of_neurons)
+```
+* softmax: This layer has a softmax activation function with a softmax cross entropy loss. When using this layer the outputs need to be logits (one hot binary set).
+```
+self.layer = ld.odict["softmax"](number_of_neurons)
+```
+
 
 ## neural_network
 This is the class that captures overall architecture of the neural network. neural_network module can 
