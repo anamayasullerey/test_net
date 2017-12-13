@@ -10,7 +10,6 @@ net = nn.NeuralNetwork("name", number_of_inputs)
 ```
 Once created, layers are sequentially added to the network from input to output. The final layer is the output layer.
 ```
-<create a layer>
 net.add_layer(layer)
 ```
 A L2 loss coefficient can be specified in the following manner.
