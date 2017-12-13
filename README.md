@@ -12,7 +12,7 @@ Layers in nn_framework is a entity that specifies forward propagation and backwa
 Inputl layer is a module of nn_framwork but it is automatically generated when a network instance is created. Users do not have to worry about this layer.
 
 ### hidden layers
-Listed below are the input layer types and the code to generate them.  many frameworks represent a layer as a compo
+Listed below are the input layer types and the code to generate them.
 * fully connected (y = wx + b)
 ```
 layer = ld.hdict["fc"](num_neurons) |
@@ -32,15 +32,16 @@ layer = ld.hdict["tanh"](num_neurons) |
 
 **_Note that "layer" frequently represents a fully connected function followed by an activation function. In nn_framework these are separate layers. _**
 
-The following table lists out the output layers.
-
-|  layer | activation | loss function |  code to create the layer |
-|---------|--------------|-------------------------|----------------|
-| sigmoid | sigmoid(x) | sigmoid cross entropy loss | ld.odict\["sigmoid"\](num_neurons)
-| softmax | softmax(x) | softmax cross entropy loss | ld.odict\["softmax"\](num_neurons)
-| loss | None | selectable | ld.odict\["loss"\](num_neurons)
-
-
+### hidden layers
+Listed below are the output layer types and the code to generate them.
+* loss: This is the generic output layer that has an identity activation function (y=x). A loss function is specified the when this output layer is created. Following loss functions are supported for loss output layer.
+o sigmoid_cross_entropy_loss
+o linear_mean_squared_loss
+```
+self.layer = ld.odict["loss"]("linear_mean_squared_loss")
+```
+* sigmoid: This layer has a sigmoid activation function as well a sigmoid cross entropy loss.
+* softmax: This layer has a softmax activation function with a softmax cross entropy loss. When using this layer the outputs need to be logits (one hot bit vectors)
 
 ## neural_network
 This is the class that captures overall architecture of the neural network. neural_network module can 
