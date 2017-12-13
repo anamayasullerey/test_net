@@ -55,19 +55,19 @@ Inputl layer is a module of nn_framwork but it is automatically generated when a
 
 ### 2.2 hidden layers
 Listed below are the input layer types and the code to generate them.
-* fully connected (y = wx + b)
+#### 2.2.1 fully connected (y = wx + b)
 ```
 layer = ld.hdict["fc"](number_of_neurons)
 ```
-* relu
+#### 2.2.2 relu
 ```
 layer = ld.hdict["relu"](number_of_neurons)
 ```
-* sigmoid
+#### 2.2.3 sigmoid
 ```
 layer = ld.hdict["sigmoid"](number_of_neurons)
 ```
-* tanh
+#### 2.2.4 tanh
 ```
 layer = ld.hdict["tanh"](number_of_neurons)
 ```
@@ -76,17 +76,20 @@ layer = ld.hdict["tanh"](number_of_neurons)
 
 ### 2.3 output layers
 Listed below are the output layer types and the code to generate them.
-* loss: This is the generic output layer that has an identity activation function (y=x). A loss function is specified the when this output layer is created. Following loss functions are supported for loss output layer.
-o sigmoid_cross_entropy_loss
-o linear_mean_squared_loss
+#### 2.3.1 loss
+This is the generic output layer that has an identity activation function (y=x). A loss function is specified the when this output layer is created. Following loss functions are supported for loss output layer.
+* sigmoid_cross_entropy_loss
+* linear_mean_squared_loss
 ```
 layer = ld.odict["loss"]("linear_mean_squared_loss")
 ```
-* sigmoid: This layer has a sigmoid activation function as well a sigmoid cross entropy loss.
+#### 2.3.2 sigmoid
+This layer has a sigmoid activation function as well a sigmoid cross entropy loss.
 ```
 layer = ld.odict["sigmoid"](number_of_neurons)
 ```
-* softmax: This layer has a softmax activation function with a softmax cross entropy loss. When using this layer the outputs need to be logits (one hot binary set).
+### 2.3.3 softmax
+This layer has a softmax activation function with a softmax cross entropy loss. When using this layer the outputs need to be logits (one hot binary set).
 ```
 layer = ld.odict["softmax"](number_of_neurons)
 ```
