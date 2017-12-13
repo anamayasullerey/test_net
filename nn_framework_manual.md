@@ -20,7 +20,12 @@ A weight update method is added to the net.
 ```
 net.set_weight_update_function(weight_update_parameters)
 ```
-At this stage the network is defined. It can be initialized (random initialization) with the following code
+At this stage the network is defined. The check_arch() function checks if network is assembled correctly.
+```
+net.check_arch()
+```
+
+The network can be initialized (random initialization) with the following code
 ```
 net.initialize_parameters()
 ```
