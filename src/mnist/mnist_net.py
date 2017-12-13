@@ -1,10 +1,8 @@
 import numpy as np
+import mnist.utils.load_mnist as load_mnist
 import nn_framework.neural_network as nn
 import nn_framework.layer_dict as ld
 import nn_framework.weight_update_params as wup
-import mnist.utils.load_mnist as load_mnist
-import random
-
 
 # Load the training, validation and test data
 # Each data is a numpy array of shape Number of Samples * 795
@@ -40,7 +38,7 @@ net.add_layer(layer)
 layer = ld.hdict["fc"](10)
 net.add_layer(layer)
 
-# Add loss layer
+# Add output layer
 layer = ld.odict["softmax"](10)
 net.add_layer(layer)
 
@@ -57,7 +55,6 @@ net.set_weight_update_function(params)
 
 # For repeatability during testing
 # np.random.seed(1)
-# random.seed(1)
 # Initialize the network
 net.initialize_parameters()
 
