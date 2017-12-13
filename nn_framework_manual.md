@@ -1,3 +1,5 @@
+# nn_framework manual
+
 ## 1. neural_network
 This class captures architecture of the neural network. 
 
@@ -13,46 +15,46 @@ A neural network object is created by the following statement.
 net = nn.NeuralNetwork("name", number_of_inputs)
 ```
 
-### 1.2.3 Adding layers
+### 1.3 Adding layers
 Once created, layers are sequentially added to the network from input to output. The final layer is the output layer.
 ```
 net.add_layer(layer)
 ```
 
-### 1.2.4 Specifying L2 loss coefficient
+### 1.4 Specifying L2 loss coefficient
 ```
 net.set_l2_loss_coeff(l2_loss_coefficient)
 ```
 
-### 1.2.5 Setting weight update function
+### 1.5 Setting weight update function
 ```
 net.set_weight_update_function(weight_update_parameters)
 ```
 
-### 1.2.6 Sanity check
+### 1.6 Sanity check
 Once the network is defined a sanity check of the architecture is done by calling check_arch() function.
 ```
 net.check_arch()
 ```
-### 1.2.7 Initialization
+### 1.7 Initialization
 The network needs to be initialized (random initialization) before training.
 ```
 net.initialize_parameters()
 ```
 
-### 1.2.8 Training
+### 1.8 Training
 ```
 # x : input 2D numpy array of size (number of inputs * batch size)
 # y : output 2D numpy array of size (number of outputs * batch size)
 net.train(x, y) 
 ```
 
-### 1.2.9 Predictions
+### 1.9 Predictions
 ```
 y = net.predict(x) 
 ```
 
-### 1.2.10 Other useful functions
+### 1.10 Other useful functions
 ```
 net.forward_prop(x) # does forward propagation
 net.backward_prop(y) # does backward propagation
