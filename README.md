@@ -17,7 +17,7 @@ Once created, layers are sequentially added to the network from input to output.
 <create a layer>
 net.add_layer(layer)
 ```
-A L2 loss coefficient can be specified in the following manner
+A L2 loss coefficient can be specified in the following manner.
 ```
 net.set_l2_loss_coeff(l2_loss_coefficient)
 ```
