@@ -1,4 +1,4 @@
-## neural_network
+## 1. neural_network
 This class captures architecture of the neural network. neural_network module is imported by the following statement.
 ```
 import nn_framework.neural_network as nn
@@ -37,21 +37,23 @@ y = net.predict(x)
 ```
 Other useful functions are,
 ```
+net.forward_prop(x) # does forward propagation
+net.backward_prop(y) # does backward propagation
 loss = net.loss(y) # Returns loss. Called after net.forward_prop(x) or net.predict(x)
 y = net.predict_classify(x) # Returns the index for classification based outputs
 status = net.check_gradient(x, y) # Returns boolean. Numerically checks the gradient calculations.
-net.print_state()
+net.print_state() # prints the activation, derivatives and parameters for each layer
 ```
-## layers
+## 2. layers
 Layers in nn_framework is a entity that specifies forward propagation and backward propagation methods. Every layer stores activations and corresponding input derivatives (dactivations). The layers are stored in two layer dictionaries, one for hidden layers (hdict) and one for output layers (ldict). Layer dictionaries are imported by the following statement.
 ```
     import nn_framework.layer_dict as ld
 ```
 
-### input layer
+### 2.1 input layer
 Inputl layer is a module of nn_framwork but it is automatically generated when a network instance is created. Users do not have to worry about this layer.
 
-### hidden layers
+### 2.2 hidden layers
 Listed below are the input layer types and the code to generate them.
 * fully connected (y = wx + b)
 ```
@@ -72,7 +74,7 @@ layer = ld.hdict["tanh"](number_of_neurons)
 
 **_Note that "layer" frequently represents a fully connected function followed by an activation function. In nn_framework these are separate layers._**
 
-### output layers
+### 2.3 output layers
 Listed below are the output layer types and the code to generate them.
 * loss: This is the generic output layer that has an identity activation function (y=x). A loss function is specified the when this output layer is created. Following loss functions are supported for loss output layer.
 o sigmoid_cross_entropy_loss
@@ -88,4 +90,35 @@ layer = ld.odict["sigmoid"](number_of_neurons)
 ```
 layer = ld.odict["softmax"](number_of_neurons)
 ```
+## 3. Weight update functions
+Weight update function is passed to the net by the follwoing api.
+```
+net.set_weight_update_function(weight_update_params)
+```
+For each weight update function their is a unique parameter class. An object of this class is passed as **_weight_update_parameter_** in the above call.
+
+### 3.1 Gradient descent
+Following code generates the weight update parametrs for gradient descent.
+``` 
+# defaults : learning_rate = 0.5
+weight_update_params = wup.GradientDescentParams(learning_rate)
+
+```
+### 3.2 Momentum
+Following code generates the weight update parametrs for momentum method.
+```
+# 
+# defaults : learning_rate = 0.2, beta = 0.9
+weight_update_params = wup.MomentumParams(learning_rate, beta)
+
+```
+### 3.3 Adam
+Following code generates the weight update parametrs for Adam.
+```
+# 
+# defaults : learning_rate = 0.2, beta1 = 0.9, beta2 = 0.999, epsilon=1e-8
+weight_update_params = wup.AdamParams(learning_rate, beta1, beta2, epsilon)
+
+```
+
 
