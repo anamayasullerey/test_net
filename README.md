@@ -5,13 +5,13 @@
 After downloading the git repository for *Start*, **"start/src"** directory needs to be added to **$PYTHONPATH**.
 
 ## 1. [MNIST digit classifier example](docs/mnist_net.ipynb) 
-MNIST digit classfier example using *Start* gives a feel of the architecture of nn_framework. It is recommended to follow the documentation and create a classifier in Jupyter notebook. The example, **mnist_net.py** is also checked in as python module and can be run in a shell.
+MNIST digit classfier example using *Start* gives a feel of the architecture of *Start*. It is recommended to follow the documentation and create a classifier in Jupyter notebook. The example, **mnist_net.py** is also checked in as python module and can be run in a shell.
 
 ## 2. [Start documentation](nn_framework_manual.md)
 The documentation on Start explains the featrues of the *Start*. It also covers the important functions of the API.
 
-# Modifying nn_framework
-## Architecture of nn_framework
+# Modifying *Start*
+## Architecture of *Start*
 *Start* builds a network as an array of layers. There layers have handles to their previous and next layers. Forward propagation and backward propagation is done as a recursion across the layers. Weight update functionality is separated from the layers. The state for weight update is maintained within the layers.
 
 ## Unit testing
