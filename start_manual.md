@@ -1,4 +1,4 @@
-# nn_framework manual
+# *Start* manual
 
 ## 1. neural_network
 This class captures architecture of the neural network. 
@@ -6,7 +6,7 @@ This class captures architecture of the neural network.
 ### 1.1 Module import
 neural_network module is imported by the following statement.
 ```
-import nn_framework.neural_network as nn
+import start.neural_network as nn
 
 ```
 ### 1.2 Creating an object
@@ -64,9 +64,9 @@ status = net.check_gradient(x, y) # Returns boolean. Numerically checks the grad
 net.print_state() # prints the activation, derivatives and parameters for each layer
 ```
 ## 2. layers
-Layers in nn_framework is a entity that specifies forward propagation and backward propagation methods. Every layer stores activations and corresponding input derivatives (dactivations). The layers are stored in two layer dictionaries, one for hidden layers (hdict) and one for output layers (ldict). Layer dictionaries are imported by the following statement.
+Layers in *Start* is a entity that specifies forward propagation and backward propagation methods. Every layer stores activations and corresponding input derivatives (dactivations). The layers are stored in two layer dictionaries, one for hidden layers (hdict) and one for output layers (ldict). Layer dictionaries are imported by the following statement.
 ```
-    import nn_framework.layer_dict as ld
+    import start.layer_dict as ld
 ```
 
 ### 2.1 input layer
@@ -115,7 +115,7 @@ layer = ld.odict["softmax"](number_of_neurons)
 ## 3. Weight update functions
 Weight update module is imported by the following statement.
 ```
-import nn_framework.weight_update_params as wup
+import start.weight_update_params as wup
 ```
 Weight update function is passed to the net by the follwoing api.
 ```
