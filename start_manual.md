@@ -72,7 +72,7 @@ Layers in *Start* is a entity that specifies forward propagation and backward pr
 ```
 
 ### 2.1 input layer
-Inputl layer is a module of nn_framwork but it is automatically generated when a network instance is created. Users do not have to worry about this layer.
+Input layer is is automatically generated when a network instance is created. Users do not have to worry about this layer.
 
 ### 2.2 hidden layers
 Listed below are the input layer types and the code to generate them.
