@@ -1,5 +1,7 @@
 # *Start* manual
 
+This document goes over the functionality and features of the modules in *Start*.
+
 ## 1. neural_network
 This class captures architecture of the neural network. 
 
@@ -91,7 +93,7 @@ layer = ld.hdict["sigmoid"](number_of_neurons)
 layer = ld.hdict["tanh"](number_of_neurons)
 ```
 
-**_Note that "layer" frequently represents a fully connected function followed by an activation function. In nn_framework these are separate layers._**
+**_Note that "layer" frequently represents a fully connected function followed by an activation function. In Start these are separate layers._**
 
 ### 2.3 output layers
 Listed below are the output layer types and the code to generate them.
