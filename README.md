@@ -2,7 +2,7 @@
 **_Start_** is designed for beginner level AI learners to experiment with neural network concepts. It is inspired by and covers the concepts covered in first three courses of the deep learning specialization by [Prof Andrew Ng](http://www.andrewng.org/ )  ([deeplearning.ai](https://www.deeplearning.ai/)).
 
 # How to *Start*
-After downloading the git repository **"nnf/src"** directory needs to be added to **$PYTHONPATH**.
+After downloading the git repository **"start/src"** directory needs to be added to **$PYTHONPATH**.
 
 ## 1. [MNIST digit classifier example](docs/mnist_net.ipynb) 
 MNIST digit classfier example using *Start* gives a feel of the architecture of nn_framework. It is recommended to follow the documentation and create a classifier in Jupyter notebook. The example, **mnist_net.py** is also checked in as python module and can be run in a shell.
