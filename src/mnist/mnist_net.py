@@ -1,8 +1,8 @@
 import numpy as np
 import mnist.utils.load_mnist as load_mnist
-import nn_framework.neural_network as nn
-import nn_framework.layer_dict as ld
-import nn_framework.weight_update_params as wup
+import start.neural_network as nn
+import start.layer_dict as ld
+import start.weight_update_params as wup
 
 # Load the training, validation and test data
 # Each data is a numpy array of shape Number of Samples * 795

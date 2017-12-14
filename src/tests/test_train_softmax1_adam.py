@@ -1,9 +1,9 @@
 import unittest
 import nn_grad_test as nt
 import numpy as np
-import nn_framework.neural_network as nn
-import nn_framework.layer_dict as ld
-import nn_framework.weight_update_params as wup
+import start.neural_network as nn
+import start.layer_dict as ld
+import start.weight_update_params as wup
 
 class TestTrainSoftmax1Adam(unittest.TestCase):
         
